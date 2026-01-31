@@ -5,6 +5,7 @@ import os
 from dotenv import load_dotenv
 import re
 import json
+import re
 load_dotenv()
 
 
@@ -68,7 +69,74 @@ class Transcriver:
         JsoInsert.main(ia)
 
 
+def validacoes():
+  try:
+   
+
+    url = input("Digite a url do video: ")
+    if url == "":
+        raise ValueError("Url inválida")
+
+    regex = re.compile(
+    r'^(https?:\/\/)'         
+    r'(([\w-]+\.)+[\w-]{2,})'  
+    r'(\/[\w\-._~:/?#[\]@!$&\'()*+,;=]*)?$',
+    re.IGNORECASE)
+
+    if not regex.match(url):
+        raise ValueError("Url inválida")
+
+        
+    
+
+    return url
+
+  except Exception as e:
+    print(e)
 
 
-Downloader.download_audio("https://www.instagram.com/reel/DUG0LhyEqo8/?igsh=MTkydnBhenc0b2s4Zw==")
-Transcriver.transcribe()
+def show_banner():
+    banner = r"""
+╔══════════════════════════════════════════════════════════════════╗
+║                                                                  ║
+║    ███╗   ██╗███████╗██╗   ██╗██████╗  █████╗ ██╗                ║
+║    ████╗  ██║██╔════╝██║   ██║██╔══██╗██╔══██╗██║                ║
+║    ██╔██╗ ██║█████╗  ██║   ██║██████╔╝███████║██║                ║
+║    ██║╚██╗██║██╔══╝  ██║   ██║██╔══██╗██╔══██║██║                ║
+║    ██║ ╚████║███████╗╚██████╔╝██║  ██║██║  ██║███████╗           ║
+║    ╚═╝  ╚═══╝╚══════╝ ╚═════╝ ╚═╝  ╚═╝╚═╝  ╚═╝╚══════╝           ║
+║                                                                  ║
+║              🧠  NEURAL ENGINE TRANSCRIBE  •  v1.0               ║
+║              🎙️  Advanced AI Speech Recognition System            ║
+║                                                                  ║
+║     ┌──────────────────────────────────────────────────────┐     ║
+║     │  ► INPUT  : Voice Signal Detected                    │     ║
+║     │  ► STATUS : Decoding Phonemes                        │     ║
+║     │  ► AI CORE: Neural Pattern Mapping                   │     ║
+║     │  ► OUTPUT : Generating Structured Text               │     ║
+║     └──────────────────────────────────────────────────────┘     ║
+║                                                                  ║
+║        [ Neural Engine Online ]   [ Speech Model Loaded ]        ║
+║                                                                  ║
+╚══════════════════════════════════════════════════════════════════╝
+"""
+    print(banner)
+
+
+
+
+
+
+
+def execScript():
+    try:
+        show_banner()
+        url = validacoes()
+
+        Downloader.download_audio(url)
+        Transcriver.transcribe()
+    except Exception as e:
+        print(e)
+ 
+
+execScript()
